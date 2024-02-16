@@ -7,8 +7,17 @@ const consultar = async(id)=>{
 }
 
 const incertar = async(body)=>{
-    const data = axios.post("http://localhost:8080/API/v1.0/Matricula/estudiantes10",body).then(ret => ret.data);
-    console.log(data);
+    axios.post("http://localhost:8080/API/v1.0/Matricula/estudiantes10",body).then(ret => ret.data);
+}
+
+const actualizar = async(id,body)=>{
+    await axios.put("http://localhost:8080/API/v1.0/Matricula/estudiantes10/"+id, body).then(ret => ret.data);
+
+}
+
+const borrar = async(id)=>{
+    axios.delete("http://localhost:8080/API/v1.0/Matricula/estudiantes10/"+id).then(ret => ret.data);
+
 }
 
 /*
@@ -17,16 +26,7 @@ const consultarTodos = async()=>{
     console.log(data);
 }
 
-const actualizar = async(body)=>{
-    const data = await axios.put("http://localhost:8080/API/v1.0/Matricula/estudiantes10/", body);
-    console.log(data);
-}
 
-
-const borrar = async(body)=>{
-    const data = axios.delete("http://localhost:8080/API/v1.0/Matricula/estudiantes10"+id).then(ret => ret.data);
-    console.log(data);
-}
 
 */
 
@@ -37,14 +37,16 @@ export const consultarFachada = async(id)=>{
 export const insertarFachada = async(body)=>{
     await incertar(body);
 }
-/*
-export const consultarTodosFachada = async(id)=>{
-    return await consultarTodos();
-}
-export const actualizarFachada = async(body)=>{
-    return await actualizar(body);
+export const actualizarFachada = async(id,body)=>{
+    return await actualizar(id,body);
 }
 export const borrarFachada = async(id)=>{
     return await borrar(id);
 }
+/*
+export const consultarTodosFachada = async(id)=>{
+    return await consultarTodos();
+}
+
+
 */

@@ -2,15 +2,14 @@
   <h1>Componente estudiante</h1>
   <div class="contenedor">
     <div id="insertar">
-        <input v-model="buscar" type="text">
-        <button @click="consultarEstudiante()">Consultar</button>
+        <input v-model="buscar" type="text" placeholder="ID">
+        <button class="btn" @click="consultarEstudiante()">Consultar</button>
     </div>
 
     <form class="form" action="https://miapli.com/procesarEstudiante" method="post">
-            
         <h2>Estudiente</h2>
         <p type="Nombre:">{{estudiante.nombre}}</p>
-        <p type="Apellido">{{estudiante.apellido}}</p>
+        <p type="Apellido:">{{estudiante.apellido}}</p>
         <p type="CI:">{{estudiante.cedula}}</p>
         <p type="Genero:">{{estudiante.genero}}</p>
         <p type="Fecha:">{{estudiante.fechaNacimiento}}</p>
@@ -22,38 +21,31 @@
   </div>
   <div class="contenedor">
     <form class="form" action="https://miapli.com/procesarEstudiante" method="post">
-        <h2>Nuevo estudiante</h2>
+        <h2>Nuevo Estudiante</h2>
         <p type="Nombre:"><input v-model="nombre" type="text"></p>
         <p type="Apellido"><input v-model="apellido" type="text"></p>
-        <p type="CI:"><input v-model="ci" type="text"></p>
+        <p type="CI:"><input v-model="cedula" type="text"></p>
         <p type="Genero:"><input v-model="genero" type="text"></p>
         <p type="Fecha:"><input v-model="fechaNacimiento" type="datetime-local"></p>
-        <p type="Tipo Sangre:"><input type="text"></p>
+        <p type="Tipo Sangre:"><input v-model="tipoSangle" type="text"></p>
         <p type="Matricula:"><input v-model="matricula" type="text"></p>
         <p type="Semestre:"><input v-model="semestre" type="number"></p>
         <p type="Gratuidad:"><input v-model="gratuidad" type="checkbox"></p>       
     </form>
     <button @click="insertarEstudiante()" class="btn">Guardar</button>
+    <div>
+        <input v-model="actualizarID" type="text" placeholder="ID">
+        <button @click="actualizar()" class="btn">actualizar</button>
+    </div>
+    <div>
+        <input v-model="borrar" type="text" placeholder="ID">
+        <button class="btn" @click="borrarEstudiante()">Borrar</button>
+    </div>
   </div>
-  <div>
-
-  </div>
-  <!-- 
-  <div>
-    <input v-model="borrar" type="text">
-    <button @click="borrarEstudiante()">borrar</button>
-  </div>
-  -->
-  <div>
-
-  </div>
-  
-  
-
 </template>
 
 <script>
-import {consultarFachada,insertarFachada} from "../helpers/clienteEstudiante.js"
+import {consultarFachada,insertarFachada,actualizarFachada,borrarFachada} from "../helpers/clienteEstudiante.js"
 export default {
     data(){
         return{
@@ -74,21 +66,21 @@ export default {
 
             nombre:null,
             apellido:null,
-            ci:null,
+            cedula:null,
             genero:null,
             fechaNacimiento:null,
-            TipoSangle:null,
+            tipoSangle:null,
             matricula: null,
             semestre: null,
             gratuidad: null,
 
+            actualizarID:null,
             borrar:null,
         }
     },
     methods:{
         async consultarEstudiante(){
             const data = await consultarFachada(this.buscar);
-            console.log(this.borrar);
             console.log(data);
             this.estudiante = data;
             console.log(this.estudiante);
@@ -100,12 +92,26 @@ export default {
                 cedula: this.cedula,
                 genero: this.genero,
                 fechaNacimiento: this.fechaNacimiento,
-                sangre: this.sangre,
+                sangre: this.tipoSangle,
                 matricula: this.matricula,
                 semestre: this.semestre,
                 gratuidad: this.gratuidad
             }
            await insertarFachada(incertar);
+        },
+        async actualizar(){
+            const incertar ={
+                nombre: this.nombre,
+                apellido: this.apellido,
+                cedula: this.cedula,
+                genero: this.genero,
+                fechaNacimiento: this.fechaNacimiento,
+                sangre: this.sangre,
+                matricula: this.matricula,
+                semestre: this.semestre,
+                gratuidad: this.gratuidad
+            }
+            await actualizarFachada(this.actualizarID,incertar);
         },
         async borrarEstudiante(){
             await borrarFachada(this.borrar);
