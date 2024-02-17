@@ -1,22 +1,23 @@
 import axios from "axios";
 
 const consultar = async(id)=>{
-    const data = axios.get("http://localhost:8080/API/v1.0/Matricula/estudiantes10/"+id).then(ret => ret.data);
-    console.log(data);
+    const data = axios.get("http://localhost:8081/API/v1.0/Matricula/estudiantes10/"+id).then(ret => ret.data);
+    console.log(id);
+    console.log(data.nombre);
     return data;
 }
 
 const incertar = async(body)=>{
-    axios.post("http://localhost:8080/API/v1.0/Matricula/estudiantes10",body).then(ret => ret.data);
+    axios.post("http://localhost:8081/API/v1.0/Matricula/estudiantes10",body).then(ret => ret.data);
 }
 
 const actualizar = async(id,body)=>{
-    await axios.put("http://localhost:8080/API/v1.0/Matricula/estudiantes10/"+id, body).then(ret => ret.data);
+    axios.put("http://localhost:8081/API/v1.0/Matricula/estudiantes10/"+id, body).then(ret => ret.data);
 
 }
 
 const borrar = async(id)=>{
-    axios.delete("http://localhost:8080/API/v1.0/Matricula/estudiantes10/"+id).then(ret => ret.data);
+    axios.delete("http://localhost:8081/API/v1.0/Matricula/estudiantes10/"+id).then(ret => ret.data);
 
 }
 
