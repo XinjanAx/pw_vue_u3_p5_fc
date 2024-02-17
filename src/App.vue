@@ -1,16 +1,21 @@
 <template>
   <h1>Universidad Central del Ecuador</h1>
+  <NavBar/>
   <router-view/>
-  
+  <footer>
+    <h2>Todos los derechos reservados</h2>
+  </footer>
 </template>
 
 <script>
+import NavBar from './components/NavBar.vue'
 import EstudiantePage from './page/EstudiantePage.vue'
 
 export default {
   name: 'App',
   components: {
-    EstudiantePage
+    EstudiantePage,
+    NavBar
   }
 }
 </script>
@@ -24,4 +29,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 </style>
